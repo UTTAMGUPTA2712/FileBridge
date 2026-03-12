@@ -1,73 +1,113 @@
-# FileBridge (MVP)
+# FileBridge
 
-FileBridge is a local, offline semantic Q&A tool for your codebase. It uses Tauri, Next.js, and Ollama to index your files and answer questions about them.
+![GitHub Release](https://img.shields.io/github/v/release/uttamgupta2712/FileBridge?style=flat-square)
+![License](https://img.shields.io/github/license/uttamgupta2712/FileBridge?style=flat-square)
 
-## Prerequisites
+FileBridge is a Tauri-based desktop application that instantly turns your PC into a local file-sharing server. Select any folder on your computer, and FileBridge generates a web interface accessible via a **QR code**. You can then use your phone (or any other device on the network) to view, upload, and delete files seamlessly. 
 
-1.  **Node.js** (v18+)
-2.  **Rust** (latest stable)
-3.  **Ollama** running locally on port 11434.
-    *   Install Ollama from [ollama.com](https://ollama.com).
-    *   Pull the required models:
-        ```bash
-        ollama pull nomic-embed-text
-        ollama pull qwen2.5-coder:14b
-        ```
+Need to share files across different networks? FileBridge integrates with `localtunnel` to give you a public URL instantly—no complex ngrok authentication required.
 
-## Installation
+Built with **Tauri**, **Next.js**, and **Rust (axum)**.
 
-1.  Clone the repo.
-2.  Install dependencies:
-    ```bash
-    npm install
-    cd src-tauri && cargo build
-    ```
+---
 
-## Development
+## 🌐 Website & Downloads
 
-Run the app in development mode:
+Visit the official **[FileBridge Documentation Site](https://uttamgupta2712.github.io/FileBridge/)** for more details.
+
+You can download the latest version of FileBridge for **Linux**, **macOS**, and **Windows** directly from our **[GitHub Releases](https://github.com/uttamgupta2712/FileBridge/releases/latest)** page. 
+
+*Note: New releases are automatically built and published via GitHub Actions when a new version tag (e.g., `v1.0.0`) is pushed.*
+
+---
+
+## ✨ Key Features
+
+*   **Instant Local Server**: Select a folder and start sharing instantly on your local network.
+*   **QR Code Access**: Scan the generated QR code with your phone's camera to immediately access the web UI.
+*   **Two-Way File Management**: View, delete, and upload files directly from your mobile device to your PC.
+*   **Public Sharing (localtunnel)**: Expose your local server to the internet with a single click using integrated `localtunnel` support.
+*   **Cross-Platform**: Available as a native desktop application for Windows, macOS, and Linux.
+
+---
+
+## 🚀 How It Works
+
+1.  **Select a Folder**: Open the desktop app and choose the directory you want to share.
+2.  **Start the Server**: FileBridge spins up a lightweight Rust (`axum`) web server on port `8080`.
+3.  **Scan & Access**: 
+    - If on the same WiFi network, scan the Local IP QR code.
+    - If you enabled the Public URL option, `localtunnel` will provide a secure internet-accessible link.
+4.  **Manage Files**: The beautiful mobile-friendly web interface lets you interact with your PC's files from anywhere.
+
+---
+
+## 🛠️ Development Setup
+
+### Prerequisites
+
+1.  **Node.js** (v18 or higher)
+2.  **Rust** (latest stable version)
+3.  **Tauri CLI** installed globally or via npm.
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/uttamgupta2712/FileBridge.git
+   cd FileBridge
+   ```
+
+2. Install frontend dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Build the Rust backend:
+   ```bash
+   cd src-tauri && cargo build
+   ```
+
+### Running the App
+
+Start the development server:
 
 ```bash
 npm run tauri dev
 ```
 
-## Build
+### Building for Production
 
-Build the desktop application:
+To build the executable for your current operating system:
 
 ```bash
 npm run tauri build
 ```
 
-## Features (MVP)
+---
 
-*   **Open Folder**: Select any local directory to analyze.
-*   **Index Codebase**: Scans supported files (`.ts`, `.tsx`, `.js`, `.py`, `.rs`, etc.), chunks them, and creates embeddings locally.
-*   **Chat**: Ask questions about your code. The app retrieves relevant chunks and uses the local LLM to answer.
-*   **Offline**: No internet required after model installation.
+## ⚙️ CI/CD & Deployments
 
-## Post-MVP Ideas
+This project utilizes **GitHub Actions** for automated CI/CD:
+- **Releases**: Pushing a tag starting with `v` (e.g., `v1.0.0`) triggers an automated build process that compiles the Tauri binaries for Windows, macOS, and Linux, and publishes them to GitHub Releases.
+- **GitHub Pages**: Pushing a tag also triggers the deployment of the `docs/` folder to GitHub Pages to update the project website.
 
-1.  **Git History Indexing**: Analyze commit messages and diffs to answer questions about *why* code changed.
-2.  **Tree-Sitter Chunking**: Use AST-based chunking instead of simple text splitting for better context preservation.
-3.  **Multi-Repo Support**: distinct tabs or workspaces for different projects.
-4.  **Auto-Update**: ongoing background re-indexing when files change.
+---
 
-## Downloads
-
-You can download the latest version of FileBridge for Linux, macOS, and Windows from our website or the [GitHub Releases](https://github.com/uttamgupta2712/filebridge/releases) page.
-
-## Contributing
+## 🤝 Contributing
 
 We welcome contributions from the community!
 
 1.  **Fork** the repository.
-2.  Create a new branch for your feature or bug fix.
-3.  Make your changes and commit them.
-4.  Push to your fork and submit a **Pull Request**.
+2.  Create a new branch: `git checkout -b feature/your-feature-name`.
+3.  Make your changes and commit them: `git commit -m 'Add some feature'`.
+4.  Push to the branch: `git push origin feature/your-feature-name`.
+5.  Submit a **Pull Request**.
 
 Please ensure your code follows the existing style and passes all tests.
 
-## License
+---
+
+## 📄 License
 
 This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
